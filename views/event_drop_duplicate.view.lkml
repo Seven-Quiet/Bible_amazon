@@ -210,7 +210,7 @@ view: event_drop_duplicate {
   measure: pray_ad_prepare_uv {
     type: count_distinct
     sql: ${user_pseudo_id} ;;
-    filters: [event_name: "pray_ad_prepare"]
+    filters: [event_name: "pray_ad_prepare_show"]
   }
 
   measure: quiz_ad_show_uv {
