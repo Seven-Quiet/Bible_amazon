@@ -120,6 +120,11 @@ view: event_drop_duplicate {
     filters: [event_name: "start_app"]
   }
 
+  measure: _session_start {
+    type: count
+    filters: [event_name: "_session_start"]
+  }
+
   measure: appopen_ad_show {
     type: count
     filters: [event_name: "appopen_enter_ad_show_total"]
@@ -130,7 +135,7 @@ view: event_drop_duplicate {
   }
   measure: appopen_show_rate {
     type: number
-    sql: case when ${appopen_ad_launch}=0 then 0 else cast(${appopen_ad_show} as float)/cast(${appopen_ad_launch} as float) end;;
+    sql: case when ${_session_start}=0 then 0 else cast(${appopen_ad_show} as float)/cast(${_session_start} as float) end;;
     value_format: "0.00%"
   }
   measure: pray_ad_show {
@@ -183,6 +188,13 @@ view: event_drop_duplicate {
 
 
   #uv
+
+  measure: _session_start_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "_session_start"]
+  }
+
   measure: start_app_uv {
     type: count_distinct
     sql: ${user_pseudo_id} ;;
