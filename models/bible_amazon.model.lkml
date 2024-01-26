@@ -110,4 +110,4 @@ explore: user_m_view {
   }
 }
 
-explore: event_duplicate {}
+explore: event_drop_duplicate {}

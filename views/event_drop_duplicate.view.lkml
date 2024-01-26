@@ -1,4 +1,4 @@
-view: event_duplicate {
+view: event_drop_duplicate {
   # Or, you could make this view a derived table, like this:
   derived_table: {
     sql:
@@ -115,6 +115,11 @@ view: event_duplicate {
       event_parameter.count
     ]
   }
+  measure: start_app {
+    type: count
+    filters: [event_name: "start_app"]
+  }
+
   measure: appopen_ad_show {
     type: count
     filters: [event_name: "appopen_enter_ad_show_total"]
@@ -146,12 +151,12 @@ view: event_duplicate {
 
   measure: quiz_ad_show {
     type: count
-    filters: [event_name: "quiz_ad_show"]
+    filters: [event_name: "quiz_UK_ad_inter_show"]
   }
 
   measure: quiz_ad_prepare {
     type: count
-    filters: [event_name: "quiz_ad_prepare"]
+    filters: [event_name: "quiz_UK_ad_inter_prepare"]
   }
 
   measure: quiz_show_rate {
@@ -174,5 +179,61 @@ view: event_duplicate {
     type: number
     sql: case when ${readmark_ad_prepare}=0 then 0 else cast(${readmark_ad_show} as float) / cast(${readmark_ad_prepare} as float) end ;;
     value_format: "0.00%"
+  }
+
+
+  #uv
+  measure: start_app_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "start_app"]
+  }
+
+  measure: appopen_ad_show_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "appopen_enter_ad_show_total"]
+  }
+
+  measure: appopen_ad_launch_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "appopen_enter_launch"]
+  }
+
+  measure: pray_ad_show_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "pray_ad_show"]
+  }
+
+  measure: pray_ad_prepare_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "pray_ad_prepare"]
+  }
+
+  measure: quiz_ad_show_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "quiz_UK_ad_inter_show"]
+  }
+
+  measure: quiz_ad_prepare_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "quiz_UK_ad_inter_prepare"]
+  }
+
+  measure: readmark_ad_show_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "readmark_ad_show"]
+  }
+
+  measure: readmark_ad_prepare_uv {
+    type: count_distinct
+    sql: ${user_pseudo_id} ;;
+    filters: [event_name: "readmark_ad_prepare_show"]
   }
 }
