@@ -161,7 +161,7 @@ view: event_drop_duplicate {
 
   measure: quiz_show_rate {
     type: number
-    sql: case when ${quiz_ad_prepare}=0 then 0 else cast(${quiz_ad_prepare} as float) / cast(${quiz_ad_prepare} as float) end ;;
+    sql: case when ${quiz_ad_prepare}=0 then 0 else cast(${quiz_ad_show} as float) / cast(${quiz_ad_prepare} as float) end ;;
     value_format: "0.00%"
   }
 
